@@ -153,8 +153,8 @@ We welcome contributions! Please fork the repository and create a pull request t
 This project is licensed under the MIT License.
 
 ## Known Issues and Future Improvements
-- Currently, only text-based documents are supported for analysis.
-- Future releases will support additional formats such as PDF and Word documents.
+- Currently, only text-based documents and PDFs are supported for analysis.
+- Future releases will support additional formats.
 - Improvements planned for agent workflows to add more complex analysis features.
 
 ## Contact
