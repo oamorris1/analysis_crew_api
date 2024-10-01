@@ -1,0 +1,8 @@
+POST  http://127.0.0.1:3001/api/crew
+Content-Type: application/json
+Accept: application/json
+
+{
+    "user_query":"What are some common variables used in studies regarding human error-based aviation accidents"
+}
+
