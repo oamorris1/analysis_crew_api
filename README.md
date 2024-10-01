@@ -160,6 +160,4 @@ This project is licensed under the MIT License.
 ## Contact
 For issues or questions, please open an issue on the GitHub repository or contact the author via email.
 
----
 
-This README file gives users and developers detailed information about what the application does, how to install and run it, and how to use its functionality. Let me know if you need any modifications or additional details!
