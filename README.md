@@ -29,7 +29,7 @@ The Document Analysis Application is a powerful tool designed for document summa
 1. **Clone the repository**:
    ```bash
    git clone <repository_url>
-   cd document-analysis-application
+   cd analysis_crew_api
    ```
    
 2. **Create and Activate a Virtual Environment**:
