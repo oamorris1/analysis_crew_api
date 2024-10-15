@@ -26,7 +26,7 @@ import os
 import json
 
 from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv('.env'))
+load_dotenv(find_dotenv('.env'), override=True)
 
 from crew import DocumentSummaryCrew, DocumentAnalysisCrew
 
@@ -43,7 +43,7 @@ llm_gpt4o = AzureChatOpenAI(deployment_name=deployment_name4o, model_name=deploy
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
 
-
+summaries_file = "summaries.json"
 summary_root_dir = "/Desktop/crew_docs/summaries/"
 
 home = str(Path.home())
@@ -57,19 +57,19 @@ summary_full_path = home + summary_root_dir
 if not os.path.exists(summary_full_path):
     os.makedirs(summary_full_path)
 
-summaries_path = summary_full_path + "/summaries.json"
+summaries_path = summary_full_path
+summaries_path_json = fr'{current_directory}\{summaries_file}'
 
 
 
 
-
-def kickoff_analysis_crew(job_id, user_query=None, docs_path=None, summaries_path=None ):
+def kickoff_analysis_crew(job_id, user_query=None, docs_path=None, summaries_path=None, summaries_path_json=None ):
     logging.info(f"Crew for job {job_id} is starting")
 
     results = None
     try:
         document_analysis_crew = DocumentAnalysisCrew(job_id)
-        document_analysis_crew.setup_crew(user_query, docs_path, summaries_path)
+        document_analysis_crew.setup_crew(user_query, docs_path, summaries_path, summaries_path_json)
         results = document_analysis_crew.kickoff()
         logging.info(f"Crew for job {job_id} is complete", results)
 
@@ -102,12 +102,11 @@ def run_crew():
         #task_type = data['task_type']
         job_id = str(uuid4())
         user_query = data['user_query']
-        # docs_path = "C:/Users/Admin/Desktop/erdcDBFunc/analysis_crew_js/documents"
-        # summaries_path = "C:/Users/Admin/Desktop/erdcDBFunc/analysis_crew_js/summaries.json"
+        
         
         #if task_type == "document analysis":
             
-        thread = Thread(target= kickoff_analysis_crew, kwargs={'job_id': job_id, 'user_query': user_query, 'docs_path': docs_path, 'summaries_path': summaries_path})
+        thread = Thread(target= kickoff_analysis_crew, kwargs={'job_id': job_id, 'user_query': user_query, 'docs_path': docs_path, 'summaries_path': summaries_path, 'summaries_path_json': summaries_path_json})
         thread.daemon = True
         thread.start()
         return jsonify({'job_id': job_id}), 200
