@@ -14,7 +14,7 @@ class DocumentAnalysisCrew:
         self.job_id = job_id
         self.crew = None
 
-    def setup_crew(self,user_query, docs_path, summaries_path):
+    def setup_crew(self,user_query, docs_path, summaries_path, summaries_path_json):
         logging.info(f"Setting up crew for {self.job_id} for document analysis")
 
 
@@ -27,7 +27,7 @@ class DocumentAnalysisCrew:
         #tasks
         tasks = AnalyzeDocumentsTasks(job_id=self.job_id)
         doc_sum_task = tasks.summarize_document(summarizer_agent, docs_path)
-        analyze_query_task = tasks.analyze_document_query(analyzer_agent, summaries_path, user_query )
+        analyze_query_task = tasks.analyze_document_query(analyzer_agent, summaries_path_json, user_query )
         docs_synthesizer_task = tasks.document_sythesis(docs_analyzer_agent, user_query)
 
         #create crew
@@ -101,4 +101,3 @@ class DocumentSummaryCrew:
         except Exception as e:
             append_event(self.job_id, f"An error occurred: {e}")
             return str(e)
-
