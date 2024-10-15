@@ -51,12 +51,12 @@ class AnalyzeDocumentsTasks():
 
        )
     
-    def analyze_document_query(self, agent, summaries_path, query):
+    def analyze_document_query(self, agent, summaries_path_json, query):
      return Task(
         description=f"""
         Wait until the document_summary_agent has completed their task. Then, using the Query_and_Document_Summary_Analysis tool analyze
         the given user query: {query}
-        to ascertain the specific information required from the document summaries found here: {summaries_path}.
+        to ascertain the specific information required from the document summaries found here: {summaries_path_json}.
         - Use the provided summaries_path to access and review document summaries.
         - The input format for the action should be a Python dictionary
         - The input should be a Python dictionary, but it MUST NOT be enclosed in triple backticks or have a JSON label.
@@ -129,6 +129,3 @@ class AnalyzeDocumentsTasks():
             """,
             callback=self.append_event_callback,
     )
-
-
-
